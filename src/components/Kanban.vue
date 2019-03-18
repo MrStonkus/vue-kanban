@@ -46,11 +46,17 @@
       },
     },
 
-    methods: {
-      getBlocks(status) {
-        return this.localBlocks.filter(block => block.status === status);
-      },
-    },
+    // MrStonkus personal change for sorting by activityDate
+  methods: {
+    getBlocks(status) {
+      let deals = this.localBlocks.filter(deal => deal.status === status);
+      return deals.sort(function(a, b) {
+        return (
+          Number(new Date(a.activityDate)) - Number(new Date(b.activityDate))
+        );
+      });
+    }
+  },
 
     mounted() {
       dragula(this.$refs.list)
